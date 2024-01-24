@@ -1,0 +1,844 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Reasonably Modern Guide to Hacking Your Chromebook</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li>
+<ul>
+<li></li>
+<li><a href="#table-of-contents">Table of Contents</a></li>
+<li><a href="#preface-and-prerequisites">Preface and Prerequisites</a></li>
+<li><a href="#i---identifying-device-information">I - Identifying Device Information</a></li>
+<li><a href="#ii---setting-gbb-flags-pre-tsunami">II - Setting GBB Flags (Pre-Tsunami)</a></li>
+<li><a href="#iii---setting-gbb-flags-ch341a">III - Setting GBB Flags (Ch341a)</a></li>
+<li><a href="#iv---flashing-murkmod-sh1mmer-smut">IV - Flashing murkmod (SH1mmer-SMUT)</a></li>
+<li><a href="#v---unenrolling-sh1mmer">V - Unenrolling (SH1mmer)</a></li>
+<li><a href="#vi---installing-murkmod-devmode">VI - Installing murkmod (Devmode)</a></li>
+<li><a href="#vii---unenrolling-devmode">VII - Unenrolling (Devmode)</a></li>
+<li><a href="#viii---configuring-murkmod">VIII - Configuring murkmod</a></li>
+<li><a href="#appendix-and-common-procedures">Appendix and Common Procedures</a></li>
+<li><a href="#credits">Credits</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <center>
+<h3>A Reasonably Modern Guide to Hacking Your Chromebook</h3>
+Written by rainestorme with help from the Cognito Inc. team
+</center>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li>Table of Contents</li>
+<li>Preface and Prerequisites</li>
+<li>I - Identifying Device Information
+<ul>
+<li>
+<ol>
+<li>Identifying chromeOS’s Release Milestone</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>Identifying the Device’s Board</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>Next Steps</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li>Next Steps - SH1mmer</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>II - Setting GBB Flags (Pre-Tsunami)
+<ul>
+<li>
+<ol>
+<li>Removing the Back Cover</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>Determining Write-Protect Type</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>Disabling Write-Protect (CR50, battery)</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li>Disabling Write-Protect (CR50, jumper)</li>
+</ol>
+</li>
+<li>
+<ol start="5">
+<li>Booting SH1mmer and Setting GBB</li>
+</ol>
+</li>
+<li>
+<ol start="6">
+<li>Next Steps</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>III - Setting GBB Flags (Ch341a)
+<ul>
+<li>
+<ol>
+<li>Removing the Back Cover</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>Wait, Should I Remove the Motherboard?</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>Removing the Motherboard</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li>Flashing New GBB Flags</li>
+</ol>
+</li>
+<li>
+<ol start="5">
+<li>Replacing the Motherboard</li>
+</ol>
+</li>
+<li>
+<ol start="6">
+<li>Replacing the Back Cover</li>
+</ol>
+</li>
+<li>
+<ol start="7">
+<li>Next Steps</li>
+</ol>
+</li>
+<li>
+<ol start="8">
+<li>Next Steps - Unenrollment</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>IV - Flashing murkmod (SH1mmer-SMUT)
+<ul>
+<li>
+<ol>
+<li>Booting SH1mmer-SMUT</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>Flashing murkmod</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>Performing Initial Setup</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li>Configuring murkmod</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>V - Unenrolling (SH1mmer)
+<ul>
+<li>
+<ol>
+<li>Booting SH1mmer</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>Unenrolling</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>What Now?</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>VI - Installing murkmod (Devmode)
+<ul>
+<li>
+<ol>
+<li>Enabling Developer Mode</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>Installing murkmod (Devmode Installer)</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>Performing Initial Setup</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li>Configuring murkmod</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>VII - Unenrolling (Devmode)
+<ul>
+<li>
+<ol>
+<li>Enabling Developer Mode</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>Setting VPD</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>What Now?</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>VIII - Configuring murkmod
+<ul>
+<li>
+<ol>
+<li>Getting to Crosh</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>Installing Recommended Plugins</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>Properly Disabling Admin-Installed Extensions</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li>Installing the Aurora Store</li>
+</ol>
+</li>
+<li>
+<ol start="5">
+<li>Installing the murkmod helper Extension</li>
+</ol>
+</li>
+<li>
+<ol start="6">
+<li>What now?</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>Appendix and Common Procedures
+<ul>
+<li>A. Building SH1mmer</li>
+<li>B. Reverting murkmod</li>
+<li>C. Reverting Unenrollment</li>
+<li>D. Finding Recovery Images</li>
+</ul>
+</li>
+<li>Credits</li>
+</ul>
+<h2 id="preface-and-prerequisites">Preface and Prerequisites</h2>
+<blockquote>
+<p>“As long as a government can come and shoot you, you can’t jump on the Internet to freedom.”<br>
+-Esther Dyson</p>
+</blockquote>
+<p>Chromebooks. Love them or hate them, we’ve all used one before - otherwise, you wouldn’t be reading this guide. The only problem is how terribly slow and laden with spyware they tend to be when under enterprise enrollment.</p>
+<p>Okay, let’s cut to the chase. We both know why you’re here, and it’s not to read this (marvelously well-written) preface. Unfortunately, there’s some stuff that needs to be covered before we can continue:</p>
+<blockquote>
+<p>This guide (the “Guide”) has been created purely for the purposes of academic research and for the development of effective defensive techniques. It is not intended to be used to attack, steal, or harm systems except where explicitly authorized. Project maintainers are not responsible or liable for misuse of the Guide or related software. Any personal, professional, or financial harm that may arise out of following the Guide is entirely the fault of the individual following the guide, not the authors. This guide involves disassembly of the target device (the “Device”), which will most likely void any and all warranties that are held over the Device. Use responsibly.</p>
+</blockquote>
+<p><small>My lawyer told me to put that there.</small></p>
+<p>Now that we’ve got that out of the way, let’s get to the fun part! This guide <em>will</em> involve some disassembly, and may require specialized hardware. Here’s a list of everything you could possibly need, regardless of your target device:</p>
+<ul>
+<li>A Ch341a USB flash programmer, SOIC-8 chip clip, and 1.8v adapter (can be bought <a href="https://www.amazon.com/AiTrip-EEPROM-Programmer-CH341A-Adapter/dp/B07VNVVXW6/">here</a>) - Note that if your device is newer it will most likely require a WSON-8 probe</li>
+<li><em>(Optional, for newer devices)</em> A WSON-8 probe (can be bought <a href="https://www.amazon.com/Circuit-Programming-Programmer-EZP2019-EZP2023/dp/B0C6F2WGV8">here</a>)</li>
+<li>A screwdriver</li>
+<li>A roll of electrical tape</li>
+<li>A USB drive, 32gb or larger - having more than one on-hand is helpful but not required</li>
+<li>An external Linux machine or VM to prepare payloads/flash firmware</li>
+<li>Wire and/or tinfoil</li>
+<li><em>(Optional, <strong>highly</strong> reccomended)</em> ESD gear of some kind - I like to use the <a href="https://www.amazon.com/iFixit-145202-4-Portable-Anti-Static-Mat/dp/B01BLPBOS4?source=ps-sl-shoppingads-lpcontext&amp;ref_=fplfs&amp;psc=1&amp;smid=A3JGOE00MHF9QZ">iFixit Portable ESD Mat</a></li>
+</ul>
+<p>Got everything you need? Great. Let’s get started.</p>
+<blockquote>
+<p>Continue to <a href="#i---identifying-device-information">I - Identifying Device Information</a></p>
+</blockquote>
+<h2 id="i---identifying-device-information">I - Identifying Device Information</h2>
+<blockquote>
+<p>“Military intelligence is the key to war; without it, you cannot win.”<br>
+-Sun Tzu</p>
+</blockquote>
+<p>In this section, we determine the necessary version and board information of the target device, which will be required later. If you already know this information, you can safely skip to <a href="#next-steps">Step 3</a>.</p>
+<h3 id="identifying-chromeos’s-release-milestone">1. Identifying chromeOS’s Release Milestone</h3>
+<p><strong>If you are able to log into the device:</strong></p>
+<ul>
+<li>Go to chrome://version and find <code>Google Chrome</code></li>
+<li>Find the first number in the version string (see image below, underlined in red). This is your <strong>release milestone</strong>, or as it is sometimes referred to, your <strong>chromeOS version</strong>. For example, the release milestone of the device on which the below screenshot was taken is <code>103</code>, or as it is commonly abbreviated, <code>v103</code>.<br>
+<img src="https://raw.githubusercontent.com/chromebook-guide/chromebook-guide.github.io/master/images/markdown_find_versioning.png" alt="identify chrome milestone chrome://version"></li>
+</ul>
+<p><strong>If you are unable to log into the device:</strong></p>
+<p>chromeOS’s version is visible on its login screen in the top right corner. Find the first number in the version string (see image below). This is your <strong>release milestone</strong>, or as it is sometimes referred to, your <strong>chromeOS version</strong>. For example, the release milestone of the device of which the picture below was taken is <code>72</code>, or as it is commonly abbreviated, <code>v72</code>.</p>
+<p><img src="https://raw.githubusercontent.com/chromebook-guide/chromebook-guide.github.io/master/images/nologin-version-identify.webp" alt="identify chrome milestone no login"></p>
+<h3 id="identifying-the-device’s-board">2. Identifying the Device’s Board</h3>
+<p><strong>If you are able to log into the device:</strong></p>
+<ul>
+<li>You should have already opened chrome://version in the last step. If not, open it now.</li>
+<li>Find the text after <code>stable-channel</code> (see image below, highlighted in blue) and note it down. This is your <strong>board</strong>, and it is a denotation of the exact hardware configuration that the target device has. Also note down the text after <code>Google_</code> - this is your <strong>device codename</strong>, and it is critical in later steps. In the case of the image below, that is <code>fleex</code>.<br>
+<img src="https://raw.githubusercontent.com/chromebook-guide/chromebook-guide.github.io/master/images/markdown_find_versioning.png" alt="identify board chrome://version"></li>
+</ul>
+<p><strong>If you are unable to log into the device:</strong></p>
+<ul>
+<li>Enter recovery mode.
+<ul>
+<li>To do so, hold down <code>Esc+Refresh+Power</code> for a few seconds, then release the keys.</li>
+<li>The system will boot to a screen that prompts you to insert a USB drive or SD card. Ignore these instructions.</li>
+</ul>
+</li>
+<li>Press <code>Tab</code> and a debug overlay will appear (see image below). Find the row starting with <code>active firmware id</code> and trace it across to the text after <code>Google_</code> - you should write down the next word (your device’s <strong>codename</strong>), which in the case of the image below is <code>Phaser</code>.</li>
+<li>Your codename should now be cross-referenced to the table at <a href="https://cros.tech/table/">cros.tech</a>. Once you find the correct row on the table, click it and look on the page for the board name (see second image below)<br>
+<img src="https://raw.githubusercontent.com/chromebook-guide/chromebook-guide.github.io/master/images/reco_identify_board.png" alt="idenfity board reco no login"><br>
+<img src="https://raw.githubusercontent.com/chromebook-guide/chromebook-guide.github.io/master/images/cros.tech_identify_board.png" alt="identify board reco no login cros.tech"></li>
+</ul>
+<h3 id="next-steps">3. Next Steps</h3>
+<blockquote>
+<p>If your target device’s board is in this list:</p>
+<ul>
+<li>(<strong>A-B</strong>) ambassador, brask, brya</li>
+<li>(<strong>C</strong>) clapper, coral, corsola</li>
+<li>(<strong>D-E</strong>) dedede, enguarde</li>
+<li>(<strong>G</strong>) glimmer, grunt</li>
+<li>(<strong>H</strong>) hana, hatch</li>
+<li>(<strong>J-N</strong>) jacuzzi, kukui, lulu, nami</li>
+<li>(<strong>O</strong>) octopus, orco</li>
+<li>(<strong>P-R</strong>) pyro, reks</li>
+<li>(<strong>S</strong>) sentry, stout, strongbad</li>
+<li>(<strong>T-Z</strong>) tidus, ultima, volteer, zork</li>
+</ul>
+<p>Then you should proceed to <a href="#next-steps---sh1mmer">Step 4</a>.<br>
+Otherwise, continue to <a href="#iii---setting-gbb-flags-ch341a">III - Setting GBB Flags (Ch341a)</a></p>
+</blockquote>
+<h3 id="next-steps---sh1mmer">4. Next Steps - SH1mmer</h3>
+<p>Your target device is vulnerable to the SH1mmer exploit. Now, we must asses the current chromeOS version on the device to determine the next steps.</p>
+<blockquote>
+<p>If your device is on a version lower than <code>v114</code>, then continue to <a href="#ii---setting-gbb-flags-pre-tsunami">II - Setting GBB Flags (Pre-Tsunami)</a></p>
+</blockquote>
+<blockquote>
+<p>If your device is on a version equal to or higher than <code>v114</code>, then continue to <a href="#iii---setting-gbb-flags-ch341a">III - Setting GBB Flags (Ch341a)</a></p>
+</blockquote>
+<h2 id="ii---setting-gbb-flags-pre-tsunami">II - Setting GBB Flags (Pre-Tsunami)</h2>
+<blockquote>
+<p>““It strikes me that the only real reason to take apart a pocket watch, or a car engine, aside from the simple delight of disassembly, is to find out how it works. To understand it, so you can put it back together again better than before, or build a new one that goes beyond what the old one could do.”<br>
+-Kurt Busiek</p>
+</blockquote>
+<p><strong>This section requires use of a screwdriver appropriate to fit the case screws of your target device, usually Phillips or Torx.</strong></p>
+<p>In this section, we disassemble the device partially in order to disable hardware write-protect, then build SH1mmer and flash it to a drive in order to use it to set the GBB flags to unblock developer mode permanently.</p>
+<h3 id="removing-the-back-cover">1. Removing the Back Cover</h3>
+<ul>
+<li>Power off your target device and turn it over.</li>
+<li>Locate all the case screws and remove them (see image below for reference of an Acer Chromebook 712 - codename <code>kindred</code>, board <code>hatch</code>), making sure not to damage the ports for lubricant, marked by Xs below.<br>
+<img src="https://raw.githubusercontent.com/chromebook-guide/chromebook-guide.github.io/master/images/kindred-screws.png" alt="enter image description here"></li>
+<li>Gently pry up the back cover.
+<ul>
+<li>Placing your fingers or a small prybar or screwdriver under the screen joints tends to work well (see image below).<br>
+<img src="https://raw.githubusercontent.com/chromebook-guide/chromebook-guide.github.io/master/images/kindred-remove-case.png" alt="kindred remove case from screen joint"></li>
+</ul>
+</li>
+<li>Optionally, you can take this opportunity to leave a little message on the inside of the case for the sake of posterity.</li>
+<li>Set the back cover aside, and you should now be able to see the motherboard.</li>
+</ul>
+<h3 id="determining-write-protect-type">2. Determining Write-Protect Type</h3>
+<ul>
+<li>Visit MrChromebox’s <a href="https://wiki.mrchromebox.tech/Supported_Devices">Supported Devices list</a> and press <code>Ctrl+F</code> to find your device codename on the page.</li>
+<li>Look at the very rightmost column in the row for your device. This denotes the type of hardware write-protect the system uses.</li>
+</ul>
+<p>This is where the path diverges.</p>
+<blockquote>
+<p>If the target device uses CR50 (battery) write-protect, continue to <a href="#disabling-write-protect-cr50-battery">Step 3</a></p>
+</blockquote>
+<blockquote>
+<p>If the target device uses CR50 (jumper) write-protect, continue to <a href="#disabling-write-protect-cr50-jumper">Step 4</a></p>
+</blockquote>
+<blockquote>
+<p>If the target device uses a different type of write-protect then those listed here, you are in a very rare scenario and should consult MrChromebox’s <a href="https://wiki.mrchromebox.tech/Firmware_Write_Protect">wiki page on the topic</a> for more help, then continue to <a href="#booting-sh1mmer-and-setting-gbb">Step 5</a></p>
+</blockquote>
+<h3 id="disabling-write-protect-cr50-battery">3. Disabling Write-Protect (CR50, battery)</h3>
+<ul>
+<li>Inside the guts of your target device, find the battery jumper and disconnect it (see image below).<br>
+<img src="https://cdn.discordapp.com/attachments/923594387089416223/1178384452611735582/kindred-remove-batt.png" alt="kindred battery jumper"></li>
+<li>Push it aside (oftentimes tucking it slightly beneath the motherboard works nicely) and fit the back cover onto the back of the device again, not placing the screws back yet.</li>
+<li>Connect the power adapter to the device and boot it up.</li>
+</ul>
+<blockquote>
+<p>Continue to <a href="#booting-sh1mmer-and-setting-gbb">Step 5</a></p>
+</blockquote>
+<h3 id="disabling-write-protect-cr50-jumper">4. Disabling Write-Protect (CR50, jumper)</h3>
+<ul>
+<li>Inside the guts of your device, locate the write-protect jumper (see image below).<br>
+<img src="https://groups.google.com/a/chromium.org/group/chromium-os-discuss/attach/b642259b79cf4957/spi-flash-chromebox.jpg?part=0.1" alt="chromebox mobo diagram w/ jumper and spi flash"></li>
+<li>Take a wire or a piece of tinfoil and stuff it within the unpopulated jumper to bridge the two contacts.</li>
+<li>Fit the back cover onto the device again, not screwing it in yet.</li>
+<li>Connect the power adapter if necessary, and boot the system.</li>
+</ul>
+<blockquote>
+<p>Continue to <a href="#booting-sh1mmer-and-setting-gbb">Step 5</a></p>
+</blockquote>
+<h3 id="booting-sh1mmer-and-setting-gbb">5. Booting SH1mmer and Setting GBB</h3>
+<ul>
+<li>If you do not already have a SH1mmer drive, follow the steps outlined in <a href="#a.-building-sh1mmer">A. Building SH1mmer</a> to build and flash one.</li>
+<li>Enter recovery mode (<code>Esc+Refresh+Power</code>) and press <code>Ctrl+D</code>. Press <code>Enter</code> to enable developer mode (see image below).<br>
+<img src="https://2.bp.blogspot.com/-DXSTNjuRalk/WELSAh1R4AI/AAAAAAAADfg/12SeVXUq6EsRTV-TN2aXnYQ8MphfPXpSACLcB/s320/Enable-Developer-Mode-on-Chrome-OS-to-Get-Root-Access2.jpg" alt="enable devmode confirmation screen"></li>
+<li>Wait for the developer mode warning screen to appear (see image below) and enter recovery mode again.<br>
+<img src="https://cdn.mos.cms.futurecdn.net/udUdmwJz9d2pXd6s2KoiWL-650-80.jpg.webp" alt="scary devmode warning screen"></li>
+<li>In recovery mode, plug in the USB drive with SH1mmer and wait through the brief text loading screen as it starts up.</li>
+<li>You should be at the menu below.<br>
+<img src="https://raw.githubusercontent.com/MercuryWorkshop/sh1mmer/beautifulworld/wax/sh1mmer-assets/qsm/qsm-select00.png" alt="sh1mmer main menu"></li>
+<li>Use the arrow keys to navigate and select <code>Payloads</code>. Press enter, and you should be at a text-based menu.</li>
+<li>Navigate to <code>Defog</code> and press enter.</li>
+<li>Upon completion of the payload, press <code>Refresh+Power</code> and remove the USB drive.</li>
+<li>At the developer mode warning screen, press <code>Ctrl+D</code> to enter developer mode, and wait for it to enable. This will take 5 minutes (which is an arbitrary delay), and you can watch the timer in the top left of the screen.</li>
+<li>When the warning screen reappears, press <code>Ctrl+D</code> again to boot to the login screen.</li>
+<li>Immediately, press <code>Ctrl+Shift+Alt+R</code> to begin a powerwash. The system will reboot multiple times during the course of the process, so press <code>Ctrl+D</code> whenever the warning screen appears. When the system boots again, <strong>DO NOT PROCEED WITH ENROLLMENT OR SETUP!</strong> Instead, immediately press <code>Ctrl+Alt+Forward (F2)</code> on the keyboard to enter the developer console.</li>
+<li>In the developer console, login as the root user by typing out <code>root</code> and pressing enter. If you’re prompted for a password, enter <code>test0000</code> - the text will not appear but it will nevertheless be there.</li>
+<li>Run these commands:<br>
+<code>tpm_manager_client take_ownership</code><br>
+<code>cryptohome --action=remove_firmware_management_parameters</code></li>
+<li>Press <code>Ctrl+Alt+Back (F1)</code> to exit the developer console and press <code>Ctrl+Shift+Alt+R</code> to powerwash again.</li>
+<li>After powerwashing is completed, press <code>Refresh+Power</code> to reboot and press <code>Space</code> and then <code>Enter</code> to <em>disable</em> developer mode.</li>
+<li>Shut down the machine immediately afterwards by shutting the lid or placing a magnet by the lid sensor.</li>
+</ul>
+<h3 id="next-steps-1">6. Next Steps</h3>
+<blockquote>
+<p>If your goal is to keep your device enrolled while still disabling extensions and having developer mode functionality, continue to <a href="#iv---flashing-murkmod-sh1mmer-smut">IV - Flashing murkmod (SH1mmer-SMUT)</a></p>
+</blockquote>
+<blockquote>
+<p>Otherwise, if you want to fully unenroll your device, continue to <a href="#v---unenrolling-sh1mmer">V - Unenrolling (SH1mmer)</a></p>
+</blockquote>
+<h2 id="iii---setting-gbb-flags-ch341a">III - Setting GBB Flags (Ch341a)</h2>
+<blockquote>
+<p>“Science isn’t about <em>why</em> - it’s about <em>why not</em>. <em>Why</em> is so much of our science dangerous? Why not <strong>marry</strong> safe science if you love it so much? In fact, why not invent a special safety door that won’t hit you in the butt on the way out, because <em><strong>you are fired</strong></em>!”<br>
+-Cave Johnson, <em>Portal 2</em></p>
+</blockquote>
+<p><strong>This section requires use of a screwdriver appropriate to fit the case screws of your target device, usually Phillips or Torx, a Ch341a USB flash programmer, and a chip clip/probe appropriate for the type of flash that your Chromebook uses, usually 3v WSON-8 (for newer models). You will also need an external Linux device, preferably running Ubuntu 23.04 - other distros will work, but these instructions will not cover discrepancies.</strong></p>
+<p>In this section, we disassemble the device and remove the motherboard in order to flash custom GBB flags directly to the read-only firmware on the device.</p>
+<h3 id="removing-the-back-cover-1">1. Removing the Back Cover</h3>
+<ul>
+<li>Power off your target device and turn it over.</li>
+<li>Locate all the case screws and remove them (see image below for reference of an Acer Chromebook 712 - codename <code>kindred</code>, board <code>hatch</code>), making sure not to damage the ports for lubricant, marked by Xs.<br>
+<img src="https://raw.githubusercontent.com/chromebook-guide/chromebook-guide.github.io/master/images/kindred-screws.png" alt="enter image description here"></li>
+<li>Gently pry up the back cover.
+<ul>
+<li>Placing your fingers or a small prybar or screwdriver under the screen joints tends to work well (see image below).<br>
+<img src="https://raw.githubusercontent.com/chromebook-guide/chromebook-guide.github.io/master/images/kindred-remove-case.png" alt="kindred remove case from screen joint"></li>
+</ul>
+</li>
+<li>Optionally, you can take this opportunity to leave a little message on the inside of the case for the sake of posterity.</li>
+<li>Set the back cover aside, and you should now be able to see the motherboard.</li>
+</ul>
+<h3 id="wait-should-i-remove-the-motherboard">2. Wait, Should I Remove the Motherboard?</h3>
+<p>This is a question I’ve been asked time and time again. Although <code>kindred</code> Chromebooks are used for reference throughout Step 3, <strong>you should not remove the motherboard of a <code>kindred</code> chromebook to reprogram your SPI flash chip</strong>. On <code>kindred</code> (and many other newer) devices, the flash chip is in a WSON-8 format on the front of the motherboard, and looks like the image below:<br>
+<img src="https://media.discordapp.net/attachments/1064223724070502451/1178795302141050890/Screenshot_2023-11-27_2.31.26_PM.png" alt="enter image description here"><br>
+If you do not need to remove your motherboard to access the flash chip, skip to <a href="#flashing-new-gbb-flags">Step 4</a>.</p>
+<h3 id="removing-the-motherboard">3. Removing the Motherboard</h3>
+<p><strong>Heads up: If you have it, wear ESD gear - it will reduce the chances of you damaging your Chromebook while poking around inside.</strong></p>
+<ul>
+<li>Looking at the guts of your Chromebook, identify the battery, the battery jumper, and the speaker cable. Unplug the battery jumper(s) and speaker cable (see image below).<br>
+<img src="https://cdn.discordapp.com/attachments/923594387089416223/1178385061175906436/kindred-remove-batt-audio.png" alt="kindred battery jumper"></li>
+<li>Remove the battery, being careful to not dislodge the touchpad if applicable for your device. Disconnect the touchpad and the USB jumper cables.<br>
+<img src="https://cdn.discordapp.com/attachments/923594387089416223/1178389617905512509/kindred-remove-touchpad-jumpers.png" alt="kindred remove touchpad and usb jumpers"></li>
+<li>Disconnect the drive or eMMC and the display, and remove the screws holding down the CPU cooler.<br>
+<img src="https://cdn.discordapp.com/attachments/923594387089416223/1178393442498392074/kindred-remove-last-cables-unscrew.png" alt="kindred remove display, emmc, and cpu cooler"></li>
+<li>Remove the CPU cooler and protective barrier, if present, and disconnect the final jumper holding down the motherboard.<br>
+<img src="https://cdn.discordapp.com/attachments/1064223724070502451/1178397740359745666/kindred-cpu-cooler-remove-mobo.png" alt="kindred remove final jumper"></li>
+<li>Remove all apparent screws holding down the motherboard, including those for the screen hinge. Verify that the motherboard is loose by gently tugging on it, being sure to not bend it if something is still holding it in place. Note that this step does not have a specific image since every Chromebook, even those with identical hardware, tend to have their motherboard screws in different positions.</li>
+<li>At this point, the motherboard should be fully loose from the rest of the hardware and you can pull it free. Set it on a safe, nonconductive surface that will not damage it, and if possible, wear ESD gear from this point onward.</li>
+</ul>
+<h3 id="flashing-new-gbb-flags">4. Flashing New GBB Flags</h3>
+<ul>
+<li>Boot up your Linux machine if you haven’t already. A VM with USB passthrough support will work just as well, as long as it doesn’t crash in the middle of the flashing process.</li>
+<li><em>(On older models)</em> Identify the SPI flash chip on the bottom of the motherboard. It will be either an 8MB or 16MB chip, with the identifier [x]25Q64[xx] (8MB) or [x]25Q128[xx] (16MB) where [xx] is usually FV or DV and [x] is usually W. We <strong>do not</strong> want to touch the EC firmware chip, which is identified by W25X40[xx]. On newer models, there will not be two individual flash chips, only one primary one in a WSON-8 format.</li>
+<li>Attach the chip clip or probe to the flash chip, making sure the depression on the chip lines up with that of the clip or probe.<br>
+<img src="https://wiki.mrchromebox.tech/images/thumb/e/e5/SOIC-8_chip.jpg/750px-SOIC-8_chip.jpg" alt="soic-8 mrchromebox guide"><br>
+<img src="https://media.discordapp.net/attachments/1064223724070502451/1178795302141050890/Screenshot_2023-11-27_2.31.26_PM.png" alt="wson-8 kindred"></li>
+<li>Look at the top text on the chip that you located on your Chromebook. Look up a datasheet online and find the voltage of the chip. In the case of the bottom chip (blue PCB), it is a Winbond <code>25Q128JVPM</code>. A quick search using the query <code>"25Q128JVPM"</code> yields: “W25Q128JV-DTR 3V 128M-BIT SERIAL FLASH MEMORY WITH DUAL/QUAD SPI &amp; QPI &amp; DTR”. DId you catch that? Right there - see it? <code>3V</code>. Some chips require 1.8 volts, so be careful not to overvolt your chip! If you are unsure of what voltage your flash chip uses, start with 1.8v and move to 3v if needed.</li>
+<li>Assemble the Ch341a, 1.8v adapter (if needed) and wire the chip clip or probe to it. Make sure the pins are lined up correctly, and that pin 1 is consistent on both ends. See the second image below for a reference for the (mostly standard) wiring used by the Winbond flash chips found on most Chromebooks.<br>
+<img src="https://wiki.mrchromebox.tech/images/thumb/1/16/Ch341a_annotated.png/750px-Ch341a_annotated.png" alt="annotated ch341a diagram"><br>
+<img src="https://cdn.discordapp.com/attachments/1064223724070502451/1178804780609589308/image.png" alt="Winbond semi-standard pins"></li>
+<li>Plug the Ch341a into your Linux device and open a terminal. Run <code>sudo su</code> and enter your password if prompted. In the opened root shell, run <code>flashrom -p ch341a</code>. flashrom should identify the flash chip connected to the Ch341a (see output below) - otherwise, you should verify all connections and try again.<br>
+<img src="https://wiki.mrchromebox.tech/images/d/d1/Flashrom_chip_detect.png" alt="flashrom output"></li>
+<li>Once <code>flashrom</code> successfully identifies the flash chip, run <code>flashrom -p ch341a -i GBB -r "./gbb.bin"</code>. This will dump the GBB (Google Binary Block) currently stored on the flash chip to your Linux system, which we will modify.</li>
+<li>Make sure everything exited correctly and no errors were shown in the past step. After you’ve verified that, run <code>apt install vboot-kernel-utils</code> (or the equivalent for your system’s package manager) and wait for the package to install. Run <code>futility gbb -s --flags="0x8091" "./gbb.bin"</code> to set the GBB flags on the dumped file, and wait for it to complete.</li>
+</ul>
+<p><strong>Careful: this step writes to the flash chip and it is critical that you make sure it finished correctly before reassembling the device!</strong></p>
+<ul>
+<li>Run <code>flashrom -p ch341a -i GBB --fast-verify -w "./gbb.bin"</code> to flash the modified GBB image back to the device’s flash chip.<br>
+-<em><strong>IMPORTANT!</strong></em> Verify that the command completed without errors - otherwise, check your connections and try again. Continue retrying until the command reports back without errors.</li>
+<li>Disconnect the chip clip or probe and bring the motherboard back over to the rest of the target device’s hardware.</li>
+</ul>
+<h3 id="replacing-the-motherboard">5. Replacing the Motherboard</h3>
+<p><em>Confident you can do this yourself? Go right ahead - it should be the exact reverse of the steps above. Since you already know what you’re doing from before, I’ll just gloss over the steps required to replace the motherboard back in your target device:</em></p>
+<ul>
+<li>Place the motherboard down (ensuring its orientation - the CPU usually faces up) in the correct position in the case. Reconnect the jumper that sits underneath the CPU cooler.</li>
+<li>Screw in all motherboard screws in their original positions, including the hinge. Reconnect the display and the eMMC/NVME/SATA drive, then replace the CPU cooler (remember the protective barrier if it was there!) - making sure to screw it in tightly. If the heatsink/cooler is missing screws, find compatible ones and replace them - you’ll thank me later when you find yourself with a  Chromebook that doesn’t overheat all the time.</li>
+</ul>
+<p><em>Side note: now is a good time to make modifications to the cooling of the device - eg. replacing the fan or heatsink, adding custom components, etc.</em><br>
+<em>Remember that any aftermarket parts are not guaranteed to fit and your mileage may vary depending on what components you may choose to add. Generally, custom design and manufacture (eg. 3D printing) of specific components to fit the exact model and dimensions of Chromebook you’re working with will be your best choice.</em></p>
+<ul>
+<li>Reconnect the touchpad and USB jumper cables, then place the battery back on top.</li>
+<li>Reconnect the battery and the speakers, then verify all the connections.</li>
+<li>After verifying everything is connected, continue to the next step.</li>
+</ul>
+<h3 id="replacing-the-back-cover">6. Replacing the Back Cover</h3>
+<ul>
+<li>Fit the back cover into the requisite position and gently push down until you can hear it clicking into place. Push at different locations on the back cover until it is firmly set on the device.</li>
+<li>Replace the screws, being careful not to damage the lubricant ports (see image below).<br>
+<img src="https://raw.githubusercontent.com/chromebook-guide/chromebook-guide.github.io/master/images/kindred-screws.png" alt="enter image description here"></li>
+</ul>
+<h3 id="next-steps-2">7. Next Steps</h3>
+<blockquote>
+<p>If your goal is to keep your device enrolled while still disabling extensions and having developer mode functionality, continue to <a href="#vi---installing-murkmod-devmode">VI - Installing murkmod (Devmode)</a></p>
+</blockquote>
+<blockquote>
+<p>Otherwise, if you want to fully unenroll your device, continue to <a href="#next-steps---unenrollment">Step 8</a></p>
+</blockquote>
+<h3 id="next-steps---unenrollment">8. Next Steps - Unenrollment</h3>
+<blockquote>
+<p>If your target device’s board is in this list:</p>
+<ul>
+<li>(<strong>A-B</strong>) ambassador, brask, brya</li>
+<li>(<strong>C</strong>) clapper, coral, corsola</li>
+<li>(<strong>D-E</strong>) dedede, enguarde</li>
+<li>(<strong>G</strong>) glimmer, grunt</li>
+<li>(<strong>H</strong>) hana, hatch</li>
+<li>(<strong>J-N</strong>) jacuzzi, kukui, lulu, nami</li>
+<li>(<strong>O</strong>) octopus, orco</li>
+<li>(<strong>P-R</strong>) pyro, reks</li>
+<li>(<strong>S</strong>) sentry, stout, strongbad</li>
+<li>(<strong>T-Z</strong>) tidus, ultima, volteer, zork</li>
+</ul>
+<p>Then you should proceed to <a href="#v---unenrolling-sh1mmer">Unenrolling (SH1mmer)</a>.<br>
+Otherwise, proceed to <a href="#vii---unenrolling-devmode">Unenrolling (Devmode)</a></p>
+</blockquote>
+<h2 id="iv---flashing-murkmod-sh1mmer-smut">IV - Flashing murkmod (SH1mmer-SMUT)</h2>
+<p><strong>This section is outdated and is only kept here for posterity. It is reccomended that you use the murkmod developer mode installer unless you plan to flash a large quantity of devices in a row with murkmod, or plan to re-flash later.</strong></p>
+<blockquote>
+<p>“Heh… SMUT… you know, that’s actually an acronym. Yeah, an acronym for <strong>S</strong>H1mmer <strong>M</strong>ultiboot <strong>UT</strong>ility. I did that on purpose - it’s funny as fuck - and I think MercuryWorkshop still hates me for it!”<br>
+-rainestorme</p>
+</blockquote>
+<h3 id="booting-sh1mmer-smut">1. Booting SH1mmer-SMUT</h3>
+<ul>
+<li>If you haven’t already, follow the instructions in <a href="#a.-building-sh1mmer">A. Building SH1mmer</a> to prepare a drive with SH1mmer-SMUT.</li>
+<li>Boot the target device and enter recovery mode.
+<ul>
+<li>Hold down <code>Esc+Refresh+Power</code> for 1 second and release it, then wait for the recovery screen to appear.</li>
+</ul>
+</li>
+<li>Pres <code>Ctrl+D</code> then <code>Enter</code> to enable developer mode.</li>
+<li>Immediately press <code>Esc+Refresh+Power</code> once the system reboots.</li>
+<li>Plug in the USB drive containing SH1mmer-SMUT.</li>
+<li>Wait for the boot process to complete.</li>
+</ul>
+<h3 id="flashing-murkmod">2. Flashing murkmod</h3>
+<ul>
+<li>Using the arrow keys, navigate to <code>Payloads</code> and press enter.</li>
+<li>Navigate to <code>SMUT (Sh1mmer Multiboot UTility)</code> and press enter.</li>
+<li>At the prompt to defog, type <code>n</code> and press enter.</li>
+<li>At the SMUT menu, type <code>1</code> and press enter.</li>
+<li>Look at the printed list of recovery images on the SH1mmer-SMUT drive. Enter the <strong>exact</strong> name of the image you wish to use (you decided this earlier when building SH1mmer) and press enter.</li>
+<li>The process should begin after a 3-second delay. If an error is shown, press enter to display the output from <code>fdisk -l</code> and identify the correct drive from it - on most Chromebooks using eMMC, this will be <code>/dev/mmcblk1</code>, and on Chromebooks using SATA drives, this will be <code>/dev/sda</code>. Type out that drive name and press enter, once again making sure not to make any typos.</li>
+<li>Wait for the process to complete. The target device will reboot automatically upon completion, and the system will boot to the developer mode warning screen.</li>
+</ul>
+<h3 id="performing-initial-setup">3. Performing Initial Setup</h3>
+<ul>
+<li>Press <code>Ctrl+D</code> at the developer mode warning screen and go through the enrollment process like normal. If enrollment fails with an error about not being able to obtain an enrollment certificate, continue following this step. Otherwise, you can skip directly to <a href="#configuring-murkmod">Step 4</a>.</li>
+<li>Press <code>Refresh+Power</code> and wait for the developer mode warning screen. Press <code>Space</code> and then <code>Enter</code> to <em>disable developer mode</em>.</li>
+<li>As soon as the screen backlight shuts off, press <code>Refresh+Power</code>. Wait for the “ChromeOS is missing or damaged” screen to appear, then enter recovery mode once again and press <code>Ctrl+D</code> and <code>Enter</code> to re-enable developer mode.</li>
+<li>Go through enrollment like normal, and this time it should work.</li>
+</ul>
+<h3 id="configuring-murkmod">4. Configuring murkmod</h3>
+<blockquote>
+<p>Continue to <a href="#viii---configuring-murkmod">VIII - Configuring murkmod</a></p>
+</blockquote>
+<h2 id="v---unenrolling-sh1mmer">V - Unenrolling (SH1mmer)</h2>
+<blockquote>
+<p>“No prison can hold me; no hand or leg irons or steel locks can shackle me. No ropes or chains can keep me from my freedom.”<br>
+-Harry Houdini</p>
+</blockquote>
+<h3 id="booting-sh1mmer">1. Booting SH1mmer</h3>
+<p>If you haven’t already, follow the instructions in <a href="#a.-building-sh1mmer">A. Building SH1mmer</a> to prepare a drive with SH1mmer.</p>
+<ul>
+<li>Boot the target device and enter recovery mode.
+<ul>
+<li>Hold down <code>Esc+Refresh+Power</code> for 1 second and release it, then wait for the recovery screen to appear.</li>
+</ul>
+</li>
+<li>Pres <code>Ctrl+D</code> then <code>Enter</code> to enable developer mode.</li>
+<li>Immediately press <code>Esc+Refresh+Power</code> once the system reboots.</li>
+<li>Plug in the USB drive containing SH1mmer-SMUT.</li>
+<li>Wait for the boot process to complete.</li>
+</ul>
+<h3 id="unenrolling">2. Unenrolling</h3>
+<ul>
+<li>Using the arrow keys to navigate, select <code>Utilities</code> and press enter.</li>
+<li>Navigate to <code>Un-enroll device</code> and press enter. Wait for the process to complete, then press <code>Refresh+Power</code> to reboot the device.</li>
+<li>Press <code>Space</code> and then <code>Enter</code> to disable developer mode, and wait for the system to boot into the setup flow.</li>
+<li>At the setup screen, press <code>Ctrl+Shift+Alt+R</code> to powerwash the system. Select <code>Powerwash</code>, then wait for the process to complete.</li>
+</ul>
+<h3 id="what-now">3. What Now?</h3>
+<p>At this point, the target device should be fully unenrolled and it should be usable as a personal Chromebook, free of all restrictions. What you do from here is up to you. Have fun!</p>
+<blockquote>
+<p>View appendix entry <a href="#c.-reverting-unenrollment">C. Reverting Unenrollment</a> for a guide on how to revert the device back to being enrolled.</p>
+</blockquote>
+<h2 id="vi---installing-murkmod-devmode">VI - Installing murkmod (Devmode)</h2>
+<blockquote>
+<p>“Your work is going to fill a large part of your life, and the only way to be truly satisfied is to do what you believe is great work.”<br>
+-Steve Jobs</p>
+</blockquote>
+<h3 id="enabling-developer-mode">1. Enabling Developer Mode</h3>
+<ul>
+<li>Enter recovery mode (<code>Esc+Refresh+Power</code>) and press <code>Ctrl+D</code> and then <code>Enter</code> to enable developer mode.</li>
+<li>Press <code>Ctrl+D</code> at the warning and then wait 5 minutes for the developer mode delay (there’s a timer in the top left).</li>
+</ul>
+<h3 id="installing-murkmod-devmode-installer">2. Installing murkmod (Devmode Installer)</h3>
+<ul>
+<li>Wait for the system to boot and connect to the Internet, then press  <code>Ctrl+Alt+Forward (F2)</code> to access the developer console.</li>
+<li>Log in as the root user by typing <code>root</code> and pressing enter.
+<ul>
+<li>If prompted, the password is <code>test0000</code>.</li>
+</ul>
+</li>
+<li>Type <code>bash &lt;(curl -SLk https://raw.githubusercontent.com/rainestorme/murkmod/main/murkmod-devmode.sh)</code> and press enter.</li>
+<li>Select your target version of murkmod from the presented menu, then wait for everything to be downloaded and installed. Press enter to confirm installation when prompted, then press any key to reboot the system. The system will boot to the developer mode warning screen.</li>
+</ul>
+<h3 id="performing-initial-setup-1">3. Performing Initial Setup</h3>
+<ul>
+<li>Press <code>Ctrl+D</code> at the developer mode warning screen and go through the enrollment process like normal. If enrollment fails with an error about not being able to obtain an enrollment certificate, continue following this step. Otherwise, you can skip directly to <a href="#configuring-murkmod-1">Step 4</a>.</li>
+<li>Press <code>Refresh+Power</code> and wait for the developer mode warning screen. Press <code>Space</code> and then <code>Enter</code> to <em>disable developer mode</em>.</li>
+<li>As soon as the screen backlight shuts off, press <code>Refresh+Power</code>. Wait for the “ChromeOS is missing or damaged” screen to appear, then enter recovery mode once again and press <code>Ctrl+D</code> and <code>Enter</code> to re-enable developer mode.</li>
+<li>Go through enrollment like normal, and this time it should work.</li>
+</ul>
+<h3 id="configuring-murkmod-1">4. Configuring murkmod</h3>
+<blockquote>
+<p>Continue to <a href="#viii---configuring-murkmod">VIII - Configuring murkmod</a></p>
+</blockquote>
+<h2 id="vii---unenrolling-devmode">VII - Unenrolling (Devmode)</h2>
+<blockquote>
+<p>“The only thing we have to fear is fear itself. Oh, and also the IT department.”<br>
+-rainestorme</p>
+</blockquote>
+<h3 id="enabling-developer-mode-1">1. Enabling Developer Mode</h3>
+<ul>
+<li>Enter recovery mode (<code>Esc+Refresh+Power</code>) and press <code>Ctrl+D</code> and then <code>Enter</code> to enable developer mode.</li>
+<li>Press <code>Ctrl+D</code> at the warning and then wait 5 minutes for the developer mode delay (there’s a timer in the top left).</li>
+</ul>
+<h3 id="setting-vpd">2. Setting VPD</h3>
+<ul>
+<li>Immediately after the system boots, press <code>Ctrl+Alt+Forward (F2)</code> to access the developer console.</li>
+<li>Log in as the root user by typing <code>root</code> and pressing enter.
+<ul>
+<li>If prompted, the password is <code>test0000</code>.</li>
+</ul>
+</li>
+<li>Type <code>vpd -i RW_VPD -s check_enrollment=0</code> and press enter.</li>
+<li>Type <code>vpd -i RW_VPD -s block_devmode=0</code> and press enter.</li>
+<li>Type <code>crossystem block_devmode=0</code> and press enter.</li>
+<li>Press <code>Ctrl+Alt+Back (F1)</code> and then press <code>Ctrl+Shift+Alt+R</code> to powerwash the system.</li>
+</ul>
+<h3 id="what-now-1">3. What Now?</h3>
+<p>At this point, the target device should be fully unenrolled and it should be usable as a personal Chromebook, free of all restrictions. What you do from here is up to you. Have fun!</p>
+<blockquote>
+<p>View appendix entry <a href="#c.-reverting-unenrollment">C. Reverting Unenrollment</a> for a guide on how to revert the device back to being enrolled.</p>
+</blockquote>
+<h2 id="viii---configuring-murkmod">VIII - Configuring murkmod</h2>
+<blockquote>
+<p>“It is not the strongest of the species that survive, nor the most intelligent, but the one most responsive to change.”<br>
+-Charles Darwin</p>
+</blockquote>
+<h3 id="getting-to-crosh">1. Getting to Crosh</h3>
+<ul>
+<li>Try to open crosh (<code>Ctrl+Alt+T</code>). If you can’t open crosh due to an extension block, then create a new folder in your Downloads named <code>disable-extensions</code>. murkmod will automagically disable extensions so you can use crosh.</li>
+</ul>
+<h3 id="installing-recommended-plugins">2. Installing Recommended Plugins</h3>
+<ul>
+<li>
+<p>Open crosh (<code>Ctrl+Alt+T</code>) and select “Install Plugins”. Use the arrow keys to navigate and select the following plugins:</p>
+<ul>
+<li>Neofetch</li>
+<li>wssocks</li>
+<li>MAC Address Randomizer</li>
+<li>murkgui</li>
+<li>Stateful Cleaner</li>
+</ul>
+</li>
+<li>
+<p>Press <code>q</code> to exit.</p>
+</li>
+</ul>
+<h3 id="properly-disabling-admin-installed-extensions">3. Properly Disabling Admin-Installed Extensions</h3>
+<p>Select “Hard Disable Extensions” and, at the prompt, enter the extension ID corresponding to the extension you want to disable:</p>
+<ul>
+<li>GoGuardian - <code>haldlgldplgnggkjaafhelgiaglafanh</code></li>
+<li>Securly - <code>iheobagjkfklnlikgihanlhcddjoihkg</code> (webstore extension) or <code>joflmkccibkooplaeoinecjbmdebglab</code> (non-webstore extension)</li>
+<li>OrbitNote - <code>feepmdlmhplaojabeoecaobfmibooaid</code></li>
+<li>Screenshot reader - <code>enfolipbjmnmleonhhebhalojdpcpdoo</code></li>
+<li>Read and Write for Google Chrome - <code>inoeonmfapjbbkmdafoankkfajkcphgd</code></li>
+<li>Gopher Buddy - <code>cgbbbjmgdpnifijconhamggjehlamcif</code></li>
+<li>Clever Plus - <code>dikiaagfielfbnbbopidjjagldjopbpa</code></li>
+<li>LightSpeed - <code>adkcpkpghahmbopkjchobieckeoaoeem</code></li>
+<li>Cisco Umbrella - <code>jcdhmojfecjfmbdpchihbeilohgnbdci</code></li>
+<li>ContentKeeper Authenticator - <code>jdogphakondfdmcanpapfahkdomaicfa</code></li>
+<li>Hapara - <code>aceopacgaepdcelohobicpffbbejnfac</code></li>
+<li>iboss - <code>kmffehbidlalibfeklaefnckpidbodff</code></li>
+<li>LightSpeed Classroom - <code>jaoebcikabjppaclpgbodmmnfjihdngk</code></li>
+<li>Blocksi - <code>ghlpmldmjjhmdgmneoaibbegkjjbonbk</code></li>
+<li>Linewize - <code>ddfbkhpmcdbciejenfcolaaiebnjcbfc</code></li>
+<li>Securly Classroom - <code>jfbecfmiegcjddenjhlbhlikcbfmnafd</code></li>
+<li>Impero - <code>jjpmjccpemllnmgiaojaocgnakpmfgjg</code></li>
+</ul>
+<h3 id="installing-the-aurora-store">4. Installing the Aurora Store</h3>
+<ul>
+<li>Download the <a href="https://gitlab.com/AuroraOSS/AuroraStore/uploads/bbc1bd5a77ab2b40bbf288ccbef8d1f0/AuroraStore_4.1.1.apk">Aurora Store APK</a>. Find it in your Downloads folder and double-click it. After a short wait, it will prompt you to confirm installing an “unsecure app”.</li>
+<li>Click Continue, and installation will commence. Confirm installation if prompted, and then launch the Aurora Store app from your launcher (press the <code>Search</code> key). It will prompt you to perform initial configuration. Leave the default value for everything (except the color theme, feel free to mess with that). If prompted to log in, just select “Log in with Google” and sign in with your home account, or use an anonymous account provided by the Aurora Store.</li>
+</ul>
+<h3 id="installing-the-murkmod-helper-extension">5. Installing the murkmod helper Extension</h3>
+<ul>
+<li>Download an archive of the murkmod repo from <a href="https://codeload.github.com/rainestorme/murkmod/zip/refs/heads/main">here</a> and unzip <strong>just</strong> the <code>helper</code> folder into the very root of your Downloads folder.</li>
+<li>Go to <code>chrome://extensions</code> and enable Developer Mode with the switch in the top right.</li>
+<li>Select <code>Load Unpacked</code> and select the <code>helper</code> folder you unzipped before.</li>
+<li>Pin the murkmod helper extension to your toolbar, then click it to open the WebUI.</li>
+</ul>
+<h3 id="what-now-2">6. What now?</h3>
+<p>The target device is now fully configured to use murkmod with the recommended settings and plugins. From here, what you do is your choice. Have fun!</p>
+<blockquote>
+<p>View appendix entry <a href="#b.-reverting-murkmod">B. Reverting murkmod</a> for a guide on how to revert the target device back to a stock state.</p>
+</blockquote>
+<h2 id="appendix-and-common-procedures">Appendix and Common Procedures</h2>
+<blockquote>
+<p>“I have not failed. I’ve just found 10,000 ways that won’t work.”<br>
+-Thomas A. Edison</p>
+</blockquote>
+<h3 id="a.-building-sh1mmer">A. Building SH1mmer</h3>
+<ul>
+<li>On your Linux device, install the following packages:
+<ul>
+<li><code>git wget</code></li>
+</ul>
+</li>
+<li>Run <code>git clone https://github.com/cognito-inc-real/sh1mmer-smut.git</code> and then <code>cd sh1mmer-smut</code></li>
+<li>Determine the variant of SH1mmer required for the procedure you’re following - either SH1mmer or SH1mmer-SMUT, depending on what the instructions call for.</li>
+<li>If using SH1mmer-SMUT:
+<ul>
+<li>Determine the version you wish to use for murkmod. This is most likely <code>v105 (og)</code>, <code>v107 (mercury)</code>, <code>v117 (john)</code>, or <code>v118 (pheonix)</code>, and I recommend either <code>v105</code> or <code>v118</code> (codenames <code>og</code> and <code>pheonix</code>, respectively).</li>
+<li>Download a recovery image for your board with the correct version from <a href="https://chrome100.dev/">chrome100</a> or <a href="https://cros.tech/">cros.tech</a>. If you need help, see appendix entry <a href="#d.-finding-recovery-images">D. Finding Recovery Images</a>.</li>
+<li>Unzip the recovery image and rename it to <code>reco_image.bin</code>. Move it to the <code>typewriter</code> directory in the repository you just cloned.</li>
+<li>Download a raw RMA shim for your board from the <a href="https://dl.osu.bio/SH1mmer/">Darkn mirror</a>, then unzip it in the <code>typewriter</code> directory and rename it to <code>raw_shim.bin</code>.</li>
+<li>Run <code>cd typewriter</code> and then run <code>chmod +x typewriter.sh</code>.</li>
+<li>Run <code>sudo ./typewriter.sh</code> and wait for the process to complete. This will take a while. Your completed shim will be located at <code>/path/to/sh1mmer-smut/typewriter/sh1mmer_smut.bin</code>.</li>
+</ul>
+</li>
+<li>If using SH1mmer:
+<ul>
+<li>Download a raw RMA shim for your board from the <a href="https://dl.osu.bio/SH1mmer/">Darkn mirror</a> and unzip it to the <code>wax</code> folder in the repo you cloned. Rename the file to <code>sh1mmer.bin</code> and run <code>sudo ./wax.sh sh1mmer.bin</code>.</li>
+<li>Wait for the process to complete. Your completed shim will be located at <code>/path/to/sh1mmer-smut/wax/sh1mmer.bin</code></li>
+</ul>
+</li>
+<li>Flash the completed shim onto a USB drive sufficient for the size of the file.
+<ul>
+<li>You can either use the <a href="https://chrome.google.com/webstore/detail/chromebook-recovery-utili/pocpnlppkickgojjlmhdmidojbmbodfm">Chromebook Recovery Utility</a> (click the settings icon in the top right and select <code>Use Local Image</code>) or a better program for your OS.</li>
+<li>If you’re on *nix, you can just use <code>dd</code> to flash the image to your USB drive: <code>dd if=/path/to/sh1mmer.bin of=/dev/sdX status=progress</code> where <code>/dev/sdX</code> is the path to your drive.</li>
+<li>If you’re on Windows, use <a href="https://rufus.ie/">Rufus</a>.</li>
+<li>If you’re on MacOS (Seriously?), use <a href="https://etcher.balena.io/">Etcher</a>.</li>
+</ul>
+</li>
+</ul>
+<h3 id="b.-reverting-murkmod">B. Reverting murkmod</h3>
+<ul>
+<li>murkmod contains a function to instantly revert you to a stock install of chromeOS. To use it, either select it in the WebUI or open crosh and select <code>(8) Emergency Revert &amp; Re-Enroll</code>.</li>
+<li>Confirm that you really do want to revert, then wait for the system to reboot.</li>
+<li>At the developer mode warning screen, press <code>Space</code> and then <code>Enter</code> to disable developer mode.</li>
+<li>You are now fully re-enrolled. If you are exceptionally paranoid about your enterprise admins running deep scans on the device in question, you can also recover to a fresh install of chromeOS or run a chromeOS update, which will overwrite your previous murkmod install.</li>
+<li>You may also want to revert your GBB flags, which can be done by following the same process that you did to set them initially.</li>
+</ul>
+<h3 id="c.-reverting-unenrollment">C. Reverting Unenrollment</h3>
+<ul>
+<li>If you haven’t already, enable developer mode.</li>
+<li>Press <code>Ctrl+Alt+Forward (F2)</code> to enter the developer console.</li>
+<li>Open crosh and enter <code>shell</code> to get to a bash shell.</li>
+<li>Run these commands one at a time:</li>
+</ul>
+<pre class=" language-sh"><code class="prism  language-sh">vpd -i RW_VPD -s check_enrollment=1
+vpd -i RW_VPD -s block_devmode=1
+crossystem block_devmode=1
+echo "fast safe" &gt; /mnt/stateful_partition/factory_install_reset
+reboot
+</code></pre>
+<ul>
+<li>The system will reboot and reset itself, and you will be re-enrolled after getting through the setup flow.
+<ul>
+<li>If developer mode is not disabled automatically by the system, disable it manually by following the steps shown at the developer boot screen.</li>
+</ul>
+</li>
+</ul>
+<h3 id="d.-finding-recovery-images">D. Finding Recovery Images</h3>
+<ul>
+<li>You should know the board of your target device for this section, as well as the version for the recovery image you wish to download.</li>
+<li>If the version you want to download is within a few major revisions of the current latest version of chromeOS, go to <a href="https://cros.tech/">cros.tech</a> and enter your device’s codename.</li>
+<li>Otherwise, you should visit <a href="https://chrome100.dev/">Chrome100</a> and find your board, then select the relevant version from the list that appears.</li>
+</ul>
+<h2 id="credits">Credits</h2>
+<blockquote>
+<p>“Alone we can do so little; together we can do so much.”<br>
+-Helen Keller</p>
+</blockquote>
+<p>The following people and groups greatly assisted with the development of this guide:</p>
+<ul>
+<li>Aw (<code>aw_somewhere</code> on Discord) - Devices for testing</li>
+<li>MercuryWorkshop - SH1mmer and much of the initial research reiterated in this guide</li>
+<li>MrChromebox - Unbricking guide and Ch341a reference</li>
+<li>The Chromium Project/ChromiumOS - Source code and references for how to change GBB flags on dumped firmware images</li>
+<li>Cognito Inc. and the Cognito Inc. Goon Squad - Helping with proofreading and writing of this guide</li>
+</ul>
+
+    </div>
+  </div>
+</body>
+
+</html>
